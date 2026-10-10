@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep quiz content in `src/lib/quiz-data.ts` and UI flow in the index route so educational content stays separate from presentation logic.
