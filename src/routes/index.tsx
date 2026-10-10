@@ -3,9 +3,9 @@ import { Check, ChevronRight, CircleX, HardDrive, Medal, Play, RotateCcw, Shield
 import { useState } from "react";
 import { QuizButton } from "@/components/quiz-button";
 import { createQuiz, type Question } from "@/lib/quiz-data";
-import hddAsset from "@/assets/hdd.webp.asset.json";
-import ssdAsset from "@/assets/ssd.webp.asset.json";
-import usbAsset from "@/assets/usb.webp.asset.json";
+import hddAsset from "@/assets/generated-hdd.png";
+import ssdAsset from "@/assets/generated-ssd.png";
+import usbAsset from "@/assets/generated-usb.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -104,8 +104,8 @@ function StartScreen({ onStart }: { onStart: () => void }) {
           <p className="mt-6 max-w-xl text-lg font-semibold leading-relaxed text-muted-foreground md:text-xl">
             Разпознавай устройства, откривай безопасните правила и събери максимален резултат.
           </p>
-          <QuizButton onClick={onStart} className="mt-8 min-h-14 px-7 text-lg">
-            <Play className="size-5 fill-current" /> Започни игра
+          <QuizButton type="button" onClick={onStart} className="mt-8 min-h-14 px-7 text-lg">
+            <Play className="size-5 fill-current" /> Започни играта
           </QuizButton>
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-bold">
             <span className="rounded-full bg-secondary px-4 py-2">10 въпроса</span>
@@ -117,15 +117,15 @@ function StartScreen({ onStart }: { onStart: () => void }) {
         <div className="relative mx-auto aspect-square w-full max-w-lg" aria-label="Носители на информация">
           <div className="absolute inset-[10%] rotate-3 rounded-[2rem] border-2 border-ink bg-secondary shadow-play" />
           <div className="absolute left-[3%] top-[7%] w-[55%] -rotate-6 rounded-2xl border-2 border-ink bg-card p-4 shadow-play">
-            <img src={hddAsset.url} alt="Твърд диск" className="aspect-[4/3] w-full object-contain" />
+            <img src={hddAsset} alt="Твърд диск" width={1024} height={768} className="aspect-[4/3] w-full object-contain" />
             <span className="mt-2 block font-display text-xl font-black">HDD</span>
           </div>
           <div className="absolute bottom-[7%] right-[2%] w-[57%] rotate-6 rounded-2xl border-2 border-ink bg-card p-4 shadow-play">
-            <img src={ssdAsset.url} alt="SSD" className="aspect-[4/3] w-full object-contain" />
+            <img src={ssdAsset} alt="SSD" width={1024} height={768} className="aspect-[4/3] w-full object-contain" />
             <span className="mt-2 block font-display text-xl font-black">SSD</span>
           </div>
           <div className="absolute right-[4%] top-[9%] w-[29%] rotate-6 rounded-2xl border-2 border-ink bg-highlight p-3 shadow-play">
-            <img src={usbAsset.url} alt="USB флашпамет" className="aspect-square w-full object-contain" />
+            <img src={usbAsset} alt="USB флашпамет" width={1024} height={768} className="aspect-square w-full object-contain" />
           </div>
           <div className="absolute bottom-[12%] left-[4%] grid size-20 -rotate-6 place-items-center rounded-full border-2 border-ink bg-accent shadow-play md:size-24">
             <HardDrive className="size-10 md:size-12" />
@@ -163,7 +163,7 @@ function QuizScreen({ question, current, total, score, selected, onChoose, onNex
         </div>
         <div className="rounded-2xl border-2 border-ink bg-card p-5 shadow-play md:p-8">
           <div className={question.image ? "grid items-center gap-7 md:grid-cols-[0.7fr_1.3fr]" : ""}>
-            {question.image && <div className="rounded-xl border-2 border-border-strong bg-paper p-3"><img src={question.image} alt={question.imageAlt} className="mx-auto aspect-[4/3] max-h-64 w-full object-contain" /></div>}
+            {question.image && <div className="rounded-xl border-2 border-border-strong bg-paper p-3"><img src={question.image} alt={question.imageAlt} loading="lazy" width={1024} height={768} className="mx-auto aspect-[4/3] max-h-64 w-full object-contain" /></div>}
             <div>
               <h2 className="font-display text-2xl font-black leading-tight sm:text-3xl md:text-4xl">{question.prompt}</h2>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">

@@ -1,8 +1,8 @@
-import cdAsset from "@/assets/cd.webp.asset.json";
-import dvdAsset from "@/assets/dvd.webp.asset.json";
-import hddAsset from "@/assets/hdd.webp.asset.json";
-import ssdAsset from "@/assets/ssd.webp.asset.json";
-import usbAsset from "@/assets/usb.webp.asset.json";
+import cdAsset from "@/assets/generated-cd.png";
+import dvdAsset from "@/assets/generated-dvd.png";
+import hddAsset from "@/assets/generated-hdd.png";
+import ssdAsset from "@/assets/generated-ssd.png";
+import usbAsset from "@/assets/generated-usb.png";
 
 export type Question = {
   id: string;
@@ -16,11 +16,11 @@ export type Question = {
 };
 
 export const questionBank: Question[] = [
-  { id: "image-hdd", category: "Разпознай", prompt: "Кой носител е показан на изображението?", choices: ["Твърд диск (HDD)", "SSD", "Компактдиск", "Флашпамет"], answer: "Твърд диск (HDD)", lesson: "Твърдият диск съхранява данните върху покрити с магнитен слой плочи.", image: hddAsset.url, imageAlt: "Твърд диск от учебника" },
-  { id: "image-cd", category: "Разпознай", prompt: "Познай носителя от фигурата.", choices: ["DVD", "Компактдиск (CD)", "Blu-ray диск", "SSD"], answer: "Компактдиск (CD)", lesson: "Компактдискът се чете с лазер и се използва за съхраняване на информация.", image: cdAsset.url, imageAlt: "Компактдиск от учебника" },
-  { id: "image-dvd", category: "Разпознай", prompt: "Кой оптичен носител виждаш?", choices: ["USB флашпамет", "Компактдиск", "DVD", "Твърд диск"], answer: "DVD", lesson: "DVD може да съхранява звук и видео с високо качество.", image: dvdAsset.url, imageAlt: "DVD от учебника" },
-  { id: "image-usb", category: "Разпознай", prompt: "Как се нарича това компактно устройство?", choices: ["SSD", "Четец на карти", "USB флашпамет", "DVD устройство"], answer: "USB флашпамет", lesson: "Флашпаметта няма движещи се части и се включва в USB порт.", image: usbAsset.url, imageAlt: "USB флашпамет от учебника" },
-  { id: "image-ssd", category: "Разпознай", prompt: "Кой съвременен носител е показан?", choices: ["SSD", "HDD", "Карта памет", "Компактдиск"], answer: "SSD", lesson: "SSD е бърз, безшумен и енергонезависим носител без движещи се части.", image: ssdAsset.url, imageAlt: "SSD от учебника" },
+  { id: "image-hdd", category: "Разпознай", prompt: "Кой носител е показан на изображението?", choices: ["Твърд диск (HDD)", "SSD", "Компактдиск", "Флашпамет"], answer: "Твърд диск (HDD)", lesson: "Твърдият диск съхранява данните върху покрити с магнитен слой плочи.", image: hddAsset, imageAlt: "Илюстрация на твърд диск" },
+  { id: "image-cd", category: "Разпознай", prompt: "Познай носителя от изображението.", choices: ["DVD", "Компактдиск (CD)", "Blu-ray диск", "SSD"], answer: "Компактдиск (CD)", lesson: "Компактдискът се чете с лазер и се използва за съхраняване на информация.", image: cdAsset, imageAlt: "Илюстрация на компактдиск" },
+  { id: "image-dvd", category: "Разпознай", prompt: "Кой оптичен носител виждаш?", choices: ["USB флашпамет", "Компактдиск", "DVD", "Твърд диск"], answer: "DVD", lesson: "DVD може да съхранява звук и видео с високо качество.", image: dvdAsset, imageAlt: "Илюстрация на DVD" },
+  { id: "image-usb", category: "Разпознай", prompt: "Как се нарича това компактно устройство?", choices: ["SSD", "Четец на карти", "USB флашпамет", "DVD устройство"], answer: "USB флашпамет", lesson: "Флашпаметта няма движещи се части и се включва в USB порт.", image: usbAsset, imageAlt: "Илюстрация на USB флашпамет" },
+  { id: "image-ssd", category: "Разпознай", prompt: "Кой съвременен носител е показан?", choices: ["SSD", "HDD", "Карта памет", "Компактдиск"], answer: "SSD", lesson: "SSD е бърз, безшумен и енергонезависим носител без движещи се части.", image: ssdAsset, imageAlt: "Илюстрация на SSD" },
   { id: "tf-sun", category: "Вярно или грешно", prompt: "Безопасно е да оставяме компактдисковете на пряка слънчева светлина.", choices: ["Вярно", "Грешно"], answer: "Грешно", lesson: "Дисковете не трябва да се излагат на пряка слънчева светлина." },
   { id: "tf-fingers", category: "Вярно или грешно", prompt: "Можем спокойно да пипаме повърхността на диска с пръсти.", choices: ["Вярно", "Грешно"], answer: "Грешно", lesson: "Не пипай повърхността на дисковете — дръж ги за краищата." },
   { id: "tf-case", category: "Вярно или грешно", prompt: "Добре е дисковете да се съхраняват в кутии или обложки.", choices: ["Вярно", "Грешно"], answer: "Вярно", lesson: "Кутията предпазва диска от прах, драскотини и повреди." },

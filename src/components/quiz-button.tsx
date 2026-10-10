@@ -8,6 +8,7 @@ type QuizButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 export function QuizButton({ className, tone = "primary", ...props }: QuizButtonProps) {
   return (
     <button
+      type={props.type ?? "button"}
       className={cn(
         "quiz-button inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 px-5 py-3 text-base font-extrabold transition-all focus-visible:outline-none focus-visible:ring-4 disabled:cursor-not-allowed disabled:opacity-60",
         tone === "primary" && "border-primary-strong bg-primary text-primary-foreground shadow-play hover:-translate-y-0.5 hover:bg-primary-strong",
