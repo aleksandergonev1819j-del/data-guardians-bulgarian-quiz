@@ -18,7 +18,7 @@ export function MatchQuestionView({ question, done, onResolve }: Props) {
   };
 
   const check = () => {
-    const correctCount = placed.filter((l, i) => l === question.pairs[i].label).length;
+    const correctCount = placed.filter((l, i) => l === question.pairs[i]?.label).length;
     onResolve(`${correctCount} от ${question.pairs.length} на място`, correctCount === question.pairs.length);
   };
 
