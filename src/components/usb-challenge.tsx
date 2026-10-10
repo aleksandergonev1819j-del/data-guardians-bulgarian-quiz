@@ -10,7 +10,7 @@ const FILES = [
   { name: "Проект.pptx", icon: Presentation },
 ];
 
-type Menu = { x: number; y: number; type: "file" | "desktop" | "usb"; file?: string } | null;
+type Menu = { x: number; y: number; type: "file" | "desktop" | "usb"; file?: string | undefined } | null;
 type Props = { done: boolean; onResolve: (selected: string, correct: boolean) => void };
 
 export function UsbChallenge({ done, onResolve }: Props) {

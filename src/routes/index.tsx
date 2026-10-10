@@ -42,11 +42,12 @@ function Index() {
   const question = questions[current];
   const score = answers.filter((answer) => answer.correct).length;
 
-  const chooseAnswer = (choice: string) => {
+  const resolve = (choice: string, correct: boolean) => {
     if (!question || selected) return;
     setSelected(choice);
-    setAnswers((previous) => [...previous, { question, selected: choice, correct: choice === question.answer }]);
+    setAnswers((previous) => [...previous, { question, selected: choice, correct }]);
   };
+  const chooseAnswer = (choice: string) => question?.kind === "choice" && resolve(choice, choice === question.answer);
 
   const goNext = () => {
     if (current === questions.length - 1) {
@@ -63,12 +64,15 @@ function Index() {
       {gameState === "start" && <StartScreen onStart={beginGame} />}
       {gameState === "playing" && question && (
         <QuizScreen
+          key={question.id}
           question={question}
           current={current}
           total={questions.length}
           score={score}
           selected={selected}
+          isCorrect={answers[answers.length - 1]?.correct ?? false}
           onChoose={chooseAnswer}
+          onResolve={resolve}
           onNext={goNext}
         />
       )}
