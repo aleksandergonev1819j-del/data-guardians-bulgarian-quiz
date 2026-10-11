@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, ChevronRight, CircleX, HardDrive, Medal, Play, RotateCcw, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import { useState } from "react";
 import { QuizButton } from "@/components/quiz-button";
+import { MatchQuestionView } from "@/components/match-question";
+import { UsbChallenge } from "@/components/usb-challenge";
 import { createQuiz, type Question } from "@/lib/quiz-data";
 import hddAsset from "@/assets/generated-hdd.png";
 import ssdAsset from "@/assets/generated-ssd.png";
@@ -141,12 +143,13 @@ function StartScreen({ onStart }: { onStart: () => void }) {
 }
 
 type QuizScreenProps = {
-  question: Question; current: number; total: number; score: number; selected: string | null;
-  onChoose: (choice: string) => void; onNext: () => void;
+  question: Question; current: number; total: number; score: number; selected: string | null; isCorrect: boolean;
+  onChoose: (choice: string) => void; onResolve: (choice: string, correct: boolean) => void; onNext: () => void;
 };
 
-function QuizScreen({ question, current, total, score, selected, onChoose, onNext }: QuizScreenProps) {
-  const isCorrect = selected === question.answer;
+function QuizScreen({ question, current, total, score, selected, isCorrect, onChoose, onResolve, onNext }: QuizScreenProps) {
+  const done = selected !== null;
+  const hint = question.kind === "choice" ? "Избери един отговор" : question.kind === "match" ? "Подреди имената под картинките" : "Изпълни стъпките в правилния ред";
   return (
     <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-5xl flex-col px-5 py-5 md:px-8 md:py-7">
       <div className="flex items-center justify-between gap-4">
@@ -163,44 +166,48 @@ function QuizScreen({ question, current, total, score, selected, onChoose, onNex
       <section className="my-auto py-7">
         <div className="mb-4 flex items-center justify-between gap-3">
           <span className="rounded-full border-2 border-ink bg-secondary px-4 py-1.5 text-sm font-black">{question.category}</span>
-          <span className="hidden text-sm font-bold text-muted-foreground sm:block">Избери един отговор</span>
+          <span className="hidden text-sm font-bold text-muted-foreground sm:block">{hint}</span>
         </div>
         <div className="rounded-2xl border-2 border-ink bg-card p-5 shadow-play md:p-8">
-          <div className={question.image ? "grid items-center gap-7 md:grid-cols-[0.7fr_1.3fr]" : ""}>
-            {question.image && <div className="rounded-xl border-2 border-border-strong bg-paper p-3"><img src={question.image} alt={question.imageAlt} loading="lazy" width={1024} height={768} className="mx-auto aspect-[4/3] max-h-64 w-full object-contain" /></div>}
-            <div>
-              <h2 className="font-display text-2xl font-black leading-tight sm:text-3xl md:text-4xl">{question.prompt}</h2>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {question.choices.map((choice, index) => {
-                  const correctChoice = selected && choice === question.answer;
-                  const wrongChoice = selected === choice && choice !== question.answer;
-                  return (
-                    <QuizButton
-                      key={choice}
-                      tone="answer"
-                      onClick={() => onChoose(choice)}
-                      disabled={selected !== null}
-                      className={`${correctChoice ? "answer-correct" : ""} ${wrongChoice ? "answer-wrong" : ""} justify-start text-left disabled:opacity-100`}
-                    >
-                      <span className="grid size-7 shrink-0 place-items-center rounded-lg border-2 border-current text-xs">{String.fromCharCode(А_CODE + index)}</span>
-                      <span className="flex-1">{choice}</span>
-                      {correctChoice && <Check className="size-5" />}
-                      {wrongChoice && <CircleX className="size-5" />}
-                    </QuizButton>
-                  );
-                })}
+          {question.kind === "choice" && (
+            <div className={question.image ? "grid items-center gap-7 md:grid-cols-[0.7fr_1.3fr]" : ""}>
+              {question.image && <div className="rounded-xl border-2 border-border-strong bg-paper p-3"><img src={question.image} alt={question.imageAlt} loading="lazy" width={1024} height={768} className="mx-auto aspect-[4/3] max-h-64 w-full object-contain" /></div>}
+              <div>
+                <h2 className="font-display text-2xl font-black leading-tight sm:text-3xl md:text-4xl">{question.prompt}</h2>
+                <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {question.choices.map((choice, index) => {
+                    const correctChoice = done && choice === question.answer;
+                    const wrongChoice = selected === choice && choice !== question.answer;
+                    return (
+                      <QuizButton
+                        key={choice}
+                        tone="answer"
+                        onClick={() => onChoose(choice)}
+                        disabled={done}
+                        className={`${correctChoice ? "answer-correct" : ""} ${wrongChoice ? "answer-wrong" : ""} justify-start text-left disabled:opacity-100`}
+                      >
+                        <span className="grid size-7 shrink-0 place-items-center rounded-lg border-2 border-current text-xs">{String.fromCharCode(А_CODE + index)}</span>
+                        <span className="flex-1">{choice}</span>
+                        {correctChoice && <Check className="size-5" />}
+                        {wrongChoice && <CircleX className="size-5" />}
+                      </QuizButton>
+                    );
+                  })}
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          {question.kind === "match" && <MatchQuestionView question={question} done={done} onResolve={onResolve} />}
+          {question.kind === "usb" && <UsbChallenge done={done} onResolve={onResolve} />}
         </div>
 
-        {selected && (
+        {done && (
           <div className={`feedback-panel mt-4 flex flex-col gap-4 rounded-2xl border-2 border-ink p-5 shadow-play sm:flex-row sm:items-center ${isCorrect ? "bg-success" : "bg-danger-soft"}`}>
             <div className={`grid size-12 shrink-0 place-items-center rounded-full border-2 border-ink ${isCorrect ? "bg-success-strong" : "bg-danger"}`}>
               {isCorrect ? <Check className="size-7" /> : <CircleX className="size-7" />}
             </div>
             <div className="flex-1">
-              <h3 className="font-display text-xl font-black">{isCorrect ? "Страхотно! Точно така." : `Почти! Верният отговор е „${question.answer}“.`}</h3>
+              <h3 className="font-display text-xl font-black">{isCorrect ? "Страхотно! Точно така." : question.kind === "choice" ? `Почти! Верният отговор е „${question.answer}“.` : "Почти! Виж правилното решение по-горе."}</h3>
               <p className="mt-1 font-semibold"><strong>Запомни:</strong> {question.lesson}</p>
             </div>
             <QuizButton tone="next" onClick={onNext} className="shrink-0">
