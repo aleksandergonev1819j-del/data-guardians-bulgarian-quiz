@@ -115,7 +115,6 @@ function StartScreen({ onStart }: { onStart: () => void }) {
           </QuizButton>
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-bold">
             <span className="rounded-full bg-secondary px-4 py-2">10 въпроса</span>
-            <span className="rounded-full bg-accent px-4 py-2">3 вида предизвикателства</span>
             <span className="rounded-full bg-highlight px-4 py-2">Нови въпроси всеки път</span>
           </div>
         </div>
