@@ -2,6 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Check, ChevronRight, CircleX, HardDrive, Medal, Play, RotateCcw, ShieldCheck, Sparkles, Trophy } from "lucide-react";
 import { useState } from "react";
 import { QuizButton } from "@/components/quiz-button";
+import { MatchQuestionView } from "@/components/match-question";
+import { UsbChallenge } from "@/components/usb-challenge";
 import { createQuiz, type Question } from "@/lib/quiz-data";
 import hddAsset from "@/assets/generated-hdd.png";
 import ssdAsset from "@/assets/generated-ssd.png";
