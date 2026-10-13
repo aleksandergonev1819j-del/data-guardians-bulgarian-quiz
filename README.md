@@ -24,7 +24,7 @@
 
 This project was built with [Lovable](https://lovable.dev).
 
-Link to the game: (https://data-guardians-bulgarian-quiz.lovable.app).
+Link to the game: https://data-guardians-bulgarian-quiz.lovable.app.
 
 ## Build with Lovable
 
